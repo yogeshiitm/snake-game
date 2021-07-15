@@ -8,4 +8,4 @@ This is an online interactive snake game, designed and coded by [Yogesh Agarwala
 1. Press "Enter" to start the game.
 2. Use arrow keys of your keyboard to change the direction of the snake.
 3. Explore the arena without bumping into walls.
-4. Collect all the food you see, and grow your snake as big as can!
+4. Collect all the food you see, and grow your snake as big as you can imagine - there are no limits!
