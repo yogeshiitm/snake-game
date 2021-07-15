@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="Snake game" />
+	<meta name="author" content="Yogesh Agarwala" />
+	<meta name="keywords" content="yogesh, agarwal, yogesh agarwala, Snake game, iit madras" />
+
+	<meta property="og:title" content="Yogesh Agarwala | Calculator" />
+	<meta property="og:image" content="/scientific-calculator/images/whatsapp.png" />
+	<meta property="og:description" content="Snake game" />
+	<meta property="og:url" content="https://yogeshiitm.github.io/snake-game/" />
+	<meta property="og:type" content="Calculator">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<title> Yogesh Agarwala || Snake Game </title>
+	<!-- Favicon-->
+	<link rel="icon" type="image/png" href="images/favicon.ico" />
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body id="body">
+	<div class="container mt-4">
+		<h1 class="py-4" style="text-align: left; color: white;">Play Snake</h1>
+
+		<div class="row shadow">
+			<!-- <div  style="background-color: white;"> -->
+			<canvas class="col-9" id="mycanvas"> </canvas>
+			<!-- </div> -->
+			<div class="col-3" style="background-color: #2c3e50!important;">
+				<div class="row mr-1  py-2">
+					<h1 style="margin:auto">Instructions</h1>
+					<div class="instruction"></div>
+				</div>
+				<div class="row">
+					<p class="ml-4">The rules are simple:</p>
+					<ul>
+						<li>
+							Use arrow keys of your keyboard to change the direction of the snake.
+						</li>
+						<li>
+							Explore the arena without bumping into walls.
+						</li>
+						<li>
+							Collect all the food you
+							see, and grow your snake as big as can!
+						</li>
+					</ul>
+					<div class="center">
+						<input type="text" readonly value="Start the game" id="message1"
+							style="font-size: large; width: 100%; text-align: center"
+							class="py-2 px-4 full-width round btn-color onhoverdark" onclick="button()" />
+
+					</div>
+					<div class="center mb-0">
+						<input type="text" readonly value="Score: 0" class="py-2 px-2"
+							style=" font-size: large; font-weight:bold; color:green; text-align: center" id="message2">
+					</div>
+					<div class="center mb-0">
+						<input type="text" readonly class="py-2 px-2"
+							style=" font-size: large; font-weight:bold; color:red; text-align: center" id="message3">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="scripts.js"></script>
+
+</body>
+</html>
