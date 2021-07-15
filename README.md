@@ -5,6 +5,7 @@ This is an online interactive snake game, designed and coded by [Yogesh Agarwala
 <a href="https://yogeshiitm.github.io/snake-game/"><img src="images/screenshot.png"></a>
 
 ## Game Rules
-1. Use arrow keys of your keyboard to change the direction of the snake.
-2. Explore the arena without bumping into walls.
-3. Collect all the food you see, and grow your snake as big as can!
+1. Press "Enter" to start the game.
+2. Use arrow keys of your keyboard to change the direction of the snake.
+3. Explore the arena without bumping into walls.
+4. Collect all the food you see, and grow your snake as big as can!
