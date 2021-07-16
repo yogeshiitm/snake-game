@@ -3,7 +3,7 @@ function init(){
 	W = canvas.width = 1000;
 	H = canvas.height = 700;
 	pen = canvas.getContext('2d');
-	cs = 30;
+	cs = 30; //snake width
 	game_over = false;
 	score = 0;
 
@@ -16,18 +16,22 @@ function init(){
 
 	food = getRandomFood();
 
+	last_x = Math.round(W/cs);
+	last_y = Math.round(H/cs);
+
 	snake = {
 		init_len:2,
 		color:"blue",
-		cells:[],
-		direction:"right",
-		// direction,
+		cells:[{x:0,y:last_y-1},{x:1,y:last_y-1},{x:2,y:last_y-1}],
+		direction:"",
+		// cells:[],
+		// direction:"right",
 
-		createSnake:function(){
-			for(var i=this.init_len;i>0;i--){
-				this.cells.push({x:i,y:0});
-			}
-		},
+		// createSnake:function(){
+		// 	for(var i=this.init_len;i>0;i--){
+		// 		this.cells.push({x:i,y:0});
+		// 	}
+		// },
 		drawSnake:function(){
 			for(var i=0;i<this.cells.length;i++){
 				pen.fillStyle = this.color;
@@ -46,7 +50,6 @@ function init(){
 				console.log("Food eaten");
 				food = getRandomFood();
 				score++;
-
 			}
 			else{
 				this.cells.pop();
@@ -67,19 +70,22 @@ function init(){
 				nextX = headX;
 				nextY = headY + 1;
 			}
-			else{
+			else if(this.direction=="up"){
 				nextX = headX;
 				nextY = headY - 1;
+			}
+			else{
+				//during start direction=""
+				nextX = headX;
+				nextY = headY;
 			}
 
 			this.cells.unshift({x: nextX,y:nextY});
 
 			/*Write a Logic that prevents snake from going out*/
-			var last_x = Math.round(W/cs);
-			var last_y = Math.round(H/cs);
-
 			if(this.cells[0].y<0 || this.cells[0].x < 0 || this.cells[0].x > last_x || this.cells[0].y > last_y){
 				game_over = true;
+				start_pressed = false;
 			}
 
 		}
@@ -104,7 +110,7 @@ function init(){
 		}
 		//starting game on pressing enter
 		else if(e.key=="Enter"){
-			button();
+			start();
 		}
 
 
@@ -124,8 +130,11 @@ function draw(){
 	pen.clearRect(0,0,W,H);
 	snake.drawSnake();
 
-	pen.fillStyle = food.color;
-	pen.drawImage(food_img,food.x*cs,food.y*cs,40,40);//40,40 represent size of apple
+	pen.fillStyle = food.color; //snake color
+	pen.drawImage(food_img, food.x*cs-5, food.y*cs-5, 40, 40);
+	//40,40 represent size of apple
+	//since cs=30 and size of apple = 40, so apple should extend 5 in both side of a call
+	//that is why draw the pic at food.x*cs-5, food.y*cs-5
 
 	pen.drawImage(trophy,18,20,70,70); //70,70 represent size of trophy
 	pen.fillStyle = "black";
@@ -159,29 +168,38 @@ function gameloop(){
 		//clearInterval(f);
 		// alert("Game Over");
 
-		document.getElementById("message1").value = "Start again";
+		document.getElementById("message1").value = "Press Enter to start again!";
 		document.getElementById("message3").value = "Game over!!!";
 		return;
 	}
 	draw();
-	update();
+	if(start_pressed){
+		update();
+	}
 	document.getElementById("message2").value = `Score: ${score}`;
 
 }
 
-function button(){
+function start(){
+	start_pressed = true;
 	console.log("clicked");
 	// init();
 	score = 0;
 	game_over=false;
-	snake.cells = [];
-	snake.createSnake();
+	if(!first_game){
+		food = getRandomFood();
+	}
+	first_game = false;
+	// snake.cells = [];
+	// snake.createSnake();
+	snake.cells = [{x:0,y:last_y-1},{x:1,y:last_y-1},{x:2,y:last_y-1}];
 	snake.direction = "right";
 	document.getElementById("message3").value ="";
 }
 
 
-
 init();
+start_pressed = false;
+first_game = true;
 
 var f = setInterval(gameloop,100);
