@@ -50,6 +50,9 @@ function init(){
 				console.log("Food eaten");
 				food = getRandomFood();
 				score++;
+				if(score > Highest_score){
+					Highest_score = score;
+				}
 			}
 			else{
 				this.cells.pop();
@@ -168,7 +171,7 @@ function gameloop(){
 		//clearInterval(f);
 		// alert("Game Over");
 
-		document.getElementById("message1").value = "Press Enter to start again!";
+		//document.getElementById("message1").value = "Press Enter to start again!";
 		document.getElementById("message3").value = "Game over!!!";
 		return;
 	}
@@ -176,11 +179,13 @@ function gameloop(){
 	if(start_pressed){
 		update();
 	}
+	document.getElementById("message1").value = `Your highest score: ${Highest_score}`;
 	document.getElementById("message2").value = `Score: ${score}`;
-
+	localStorage["Highest_score_key"] = Highest_score;
 }
 
 function start(){
+	
 	start_pressed = true;
 	console.log("clicked");
 	// init();
@@ -201,5 +206,24 @@ function start(){
 init();
 start_pressed = false;
 first_game = true;
+//Highest_score = 0;
+
+//caching highest score
+
+// localStorage['myKey'] = 'somestring'; // only strings //write
+// var myVar = localStorage['myKey'] || 'defaultValue'; //read
+
+// localStorage['myKey'] = JSON.stringify(myVar); //write
+// var stored = localStorage['myKey']; //read
+// if (stored) myVar = JSON.parse(stored);
+// else myVar = {a:'test', b: [1, 2, 3]};
+
+
+if (localStorage.getItem("Highest_score_key") === null) {
+	localStorage["Highest_score_key"] = JSON.stringify(0);
+}
+stored = localStorage["Highest_score_key"]; //read
+console.log(`stored: ${stored}`);
+Highest_score = JSON.parse(stored);
 
 var f = setInterval(gameloop,100);
