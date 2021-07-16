@@ -50,18 +50,22 @@
 						</li>
 					</ul>
 					<div class="center">
-						<input type="text" readonly value="Start the game" id="message1"
+						<input type="text" readonly value="Your highest score: 0" id="message1"
 							style="font-size: large; width: 100%; text-align: center"
-							class="py-2 px-4 full-width round btn-color onhoverdark" onclick="start()" />
-
+							class="py-2 px-4 onhoverdark" 
+							onclick="start()" />
 					</div>
 					<div class="center mb-0">
-						<input type="text" readonly value="Score: 0" class="py-2 px-2"
-							style=" font-size: large; width: 100%; font-weight:bold; color:green; text-align: center" id="message2">
+						<input type="text" readonly value="Score: 0" id="message2"
+							class="py-2 px-2 onhoverdark"
+							style=" font-size: large; width: 100%; font-weight:bold; color:green; text-align: center"
+							onclick="start()" />
 					</div>
 					<div class="center mb-0">
-						<input type="text" readonly value="Press Enter to start!!!" class="py-2 px-2"
-							style=" font-size: large; width: 100%; font-weight:bold; color:red; text-align: center" id="message3">
+						<input type="text" readonly value="Press Enter to start!!!" id="message3"
+							class="py-2 px-2 onhoverdark"
+							style=" font-size: large; width: 100%; font-weight:bold; color:red; text-align: center" 
+							onclick="start()" />
 					</div>
 				</div>
 			</div>
@@ -72,7 +76,7 @@
 			<p class="py-4"><b>Note:</b> The game is currently supported only on a <span style="color: red;">desktop</span>, as the snake has to be controlled by arrow keys of the keyboard. But soon I will add button controls for touch mobile/tablet as well.</p>
 		</div>
 
-	<script src="scripts.js?version=2"></script>
+	<script src="scripts.js?version=10"></script>
 	</div>
 
 
