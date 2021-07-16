@@ -19,11 +19,11 @@
 	<title> Yogesh Agarwala || Snake Game </title>
 	<!-- Favicon-->
 	<link rel="icon" type="image/png" href="images/favicon.ico" />
-	<link rel="stylesheet" href="styles.css?version=1">
+	<link rel="stylesheet" href="styles.css?version=2">
 </head>
 
 <body id="body">
-	<div class="container mt-4">
+	<div class="container mt-4" id="content-desktop">
 		<h1 class="py-4" style="text-align: left; color: white;">Play Snake</h1>
 
 		<div class="row shadow">
@@ -66,8 +66,24 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- for tablet size i am keeping the game (incase someone is using a small sized laptop) but also dispacing a text -->
+		<div id="content-tablet">
+			<p class="py-4"><b>Note:</b> The game is currently supported only on a <span style="color: red;">desktop</span>, so please open the URL on a desktop, as the game can be controlled only by arrow keys of the keyboard. Soon I will add button controls for touch mobile/tablet.</p>
+		</div>
+
+	<!-- <script src="scripts.js?version=1"></script> -->
 	</div>
-	<script src="scripts.js?version=1"></script>
+
+
+	<div class="mt-4" id="content-mobile">
+		<img src="images/screenshot.png" width="100%"  alt="pic">
+		<div class=" container center">
+			<!-- <img src="static/giphy.gif" alt="logo" width="300px"> -->
+			<p><b>Note:</b> The game is currently supported only on a <span style="color: red;">desktop</span>, so please open the URL on a desktop, as the game can be controlled only by arrow keys of the keyboard. Soon I will add button controls for touch mobile/tablet.</p>
+		</div>
+	</div>
+
 
 </body>
 </html>

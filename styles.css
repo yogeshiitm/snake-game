@@ -13,6 +13,33 @@ body {
     width: 100%;
 }
 
+@media screen and (max-width: 768px) {
+    #content-desktop {
+        display: none !important;
+    }
+    #content-tablet {
+        display: none !important;
+    }
+    #content-mobile {
+        display: block !important;
+    }
+}
+@media (min-width:769px) and (max-width:1024px){
+    #content-desktop {
+        display: block !important;
+    }
+    #content-tablet {
+        display: block !important;
+    }
+    #content-mobile {
+        display: none !important;
+    }
+}
+#content-desktop {display: block;}
+#content-tablet {display: none;}
+#content-mobile {display: none;}
+
+
 .onhoverdark:hover{
     background: #d7d9dd !important;
     outline: none;
