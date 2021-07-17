@@ -58,7 +58,7 @@ function init(){
 				this.cells.pop();
 			}
 
-			
+
 			var nextX,nextY;
 
 			if(this.direction=="right"){
@@ -181,11 +181,11 @@ function gameloop(){
 	}
 	document.getElementById("message1").value = `Your highest score: ${Highest_score}`;
 	document.getElementById("message2").value = `Score: ${score}`;
-	localStorage["Highest_score_key"] = Highest_score;
+	localStorage["Highest_score_key"] = Highest_score; //caching
 }
 
 function start(){
-	
+
 	start_pressed = true;
 	console.log("clicked");
 	// init();
