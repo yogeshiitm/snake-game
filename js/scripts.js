@@ -106,9 +106,11 @@ function init(){
 			snake.direction = "left";
 		}
 		else if(e.key=="ArrowDown"){
+			e.preventDefault(); // to prevent webpage scrolling using arrow key
 			snake.direction = "down";
 		}
 		else if(e.key=="ArrowUp"){
+			e.preventDefault(); // to prevent webpage scrolling using arrow key
 			snake.direction = "up";
 		}
 		//starting game on pressing enter
