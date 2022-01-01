@@ -13,6 +13,11 @@ body {
     width: 100%;
 }
 
+.hrefWithoutDecoration2 {
+    text-decoration: none !important;
+    color: white !important;
+}
+
 @media screen and (max-width: 768px) {
     #content-desktop {
         display: none !important;
