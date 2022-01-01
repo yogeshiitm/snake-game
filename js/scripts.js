@@ -1,217 +1,170 @@
-function init(){
-	canvas = document.getElementById('mycanvas');
-	W = canvas.width = 1000;
-	H = canvas.height = 700;
-	pen = canvas.getContext('2d');
-	cs = 30; //snake width
-	game_over = false;
-	score = 0;
+board = document.getElementById('boardid');
+pen = board.getContext('2d');
+board_width = board.width = 1000;
+board_height = board.height = 700;
+width = 30; //snake width
+end_row = Math.round(board_height/width);
+end_col = Math.round(board_width/width);
+snake_speed = 100; //gameloop refreshes every 100ms
 
-	//Create a Image Object for food
-	food_img = new Image();
-	food_img.src = "images/apple.png";
+start_pressed = false;
+first_game = true;
+game_over = false;
+score = 0;
+food_img = new Image();
+food_img.src = "images/apple.png";
+food = getRandomFood();
 
-	trophy = new Image();
-	trophy.src = "images/trophy.png";
-
-	food = getRandomFood();
-
-	last_x = Math.round(W/cs);
-	last_y = Math.round(H/cs);
-
-	snake = {
-		init_len:2,
-		color:"blue",
-		cells:[{x:0,y:last_y-1},{x:1,y:last_y-1},{x:2,y:last_y-1}],
-		direction:"",
-		// cells:[],
-		// direction:"right",
-
-		// createSnake:function(){
-		// 	for(var i=this.init_len;i>0;i--){
-		// 		this.cells.push({x:i,y:0});
-		// 	}
-		// },
-		drawSnake:function(){
-			for(var i=0;i<this.cells.length;i++){
-				pen.fillStyle = this.color;
-				pen.fillRect(this.cells[i].x*cs,this.cells[i].y*cs,cs-3,cs-3);
-			}
-		},
-
-		updateSnake:function(){
-			//console.log("updating snake according to the direction property");
-			//check if the snake has eaten food, increase the length of the snake and 
-			//generate new food object
-			var headX = this.cells[0].x;
-			var headY = this.cells[0].y;
-
-			if(headX==food.x && headY==food.y){
-				console.log("Food eaten");
-				food = getRandomFood();
-				score++;
-				if(score > Highest_score){
-					Highest_score = score;
-				}
-			}
-			else{
-				this.cells.pop();
-			}
-
-
-			var nextX,nextY;
-
-			if(this.direction=="right"){
-				nextX = headX + 1;
-				nextY = headY;
-			}
-			else if(this.direction=="left"){
-				nextX = headX - 1;
-				nextY = headY;
-			}
-			else if(this.direction=="down"){
-				nextX = headX;
-				nextY = headY + 1;
-			}
-			else if(this.direction=="up"){
-				nextX = headX;
-				nextY = headY - 1;
-			}
-			else{
-				//during start direction=""
-				nextX = headX;
-				nextY = headY;
-			}
-
-			this.cells.unshift({x: nextX,y:nextY});
-
-			/*Write a Logic that prevents snake from going out*/
-			if(this.cells[0].y<0 || this.cells[0].x < 0 || this.cells[0].x > last_x || this.cells[0].y > last_y){
-				game_over = true;
-				start_pressed = false;
-			}
-
-		}
-
-	};
-
-	// snake.createSnake();
-	//Add a Event Listener on the Document Object
-	function keyPressed(e){
-		//Conditional Statments
-		if(e.key=="ArrowRight"){
-			snake.direction = "right";
-		}
-		else if(e.key=="ArrowLeft"){
-			snake.direction = "left";
-		}
-		else if(e.key=="ArrowDown"){
-			e.preventDefault(); // to prevent webpage scrolling using arrow key
-			snake.direction = "down";
-		}
-		else if(e.key=="ArrowUp"){
-			e.preventDefault(); // to prevent webpage scrolling using arrow key
-			snake.direction = "up";
-		}
-		//starting game on pressing enter
-		else if(e.key=="Enter"){
-			start();
-		}
-
-
-		console.log(snake.direction);
-	}
-
-
-	document.addEventListener('keydown',keyPressed);
-	
-}
-
-
-function draw(){
-	//console.log("In Draw");
-
-	//erase the old frame
-	pen.clearRect(0,0,W,H);
-	snake.drawSnake();
-
-	pen.fillStyle = food.color; //snake color
-	pen.drawImage(food_img, food.x*cs-5, food.y*cs-5, 40, 40);
-	//40,40 represent size of apple
-	//since cs=30 and size of apple = 40, so apple should extend 5 in both side of a call
-	//that is why draw the pic at food.x*cs-5, food.y*cs-5
-
-	pen.drawImage(trophy,18,20,70,70); //70,70 represent size of trophy
-	pen.fillStyle = "black";
-	pen.font = "30px Roboto"
-	pen.fillText(score,45,55);
-
-	
-}
-
-function update(){
-	//console.log("In Update");
-	snake.updateSnake(); 
-}
-
-function getRandomFood(){
-
-	var foodX = Math.round(Math.random()*(W-cs)/cs);
-	var foodY = Math.round(Math.random()*(H-cs)/cs);
-
-	var food = {
-		x:foodX,
-		y:foodY,
-		color:"red",
-	}
-	return food
-
-}
-
-function gameloop(){
-	if(game_over==true){
-		//clearInterval(f);
-		// alert("Game Over");
-
-		//document.getElementById("message1").value = "Press Enter to start again!";
-		document.getElementById("message3").value = "Game over!!!";
-		return;
-	}
-	draw();
-	if(start_pressed){
-		update();
-	}
-	document.getElementById("message1").value = `Your highest score: ${Highest_score}`;
-	document.getElementById("message2").value = `Score: ${score}`;
-	localStorage["Highest_score_key"] = Highest_score; //caching
-}
-
+/*-------------------------------------------- START -----------------------------------------------*/
+//triggered when Enter is pressed
 function start(){
-
 	start_pressed = true;
 	console.log("clicked");
-	// init();
 	score = 0;
 	game_over=false;
 	if(!first_game){
 		food = getRandomFood();
 	}
 	first_game = false;
-	// snake.cells = [];
-	// snake.createSnake();
-	snake.cells = [{x:0,y:last_y-1},{x:1,y:last_y-1},{x:2,y:last_y-1}];
+	snake.snakeArray = [{x:0,y:end_row-1},{x:1,y:end_row-1},{x:2,y:end_row-1}];
 	snake.direction = "right";
 	document.getElementById("message3").value ="";
 }
+function getRandomFood(){
+	var foodX = Math.round(Math.random()*(board_width-width)/width);
+	var foodY = Math.round(Math.random()*(board_height-width)/width);
+	var food = { x:foodX, y:foodY, color:"red" } //food class with 3 properties
+	return food
+}
+
+/*-------------------------------------------- GAME LOOP ---------------------------------------------*/
+//gameloop refresh interval
+
+setInterval(gameloop, snake_speed);
+
+function gameloop(){
+	if(game_over==true){
+		document.getElementById("message3").value = "Game over!!!";
+		return;
+	}
+	//erase the old snake and draw new one at updated position
+	pen.clearRect(0,0,board_width,board_height);
+	snake.drawSnake();
+	
+	//draw food in new frame
+	pen.fillStyle = food.color;
+	pen.drawImage(food_img, food.x*width-5, food.y*width-5, 40, 40); //40,40 represent size of apple
+
+	//score
+	pen.fillStyle = "black";
+	pen.font = "30px Roboto"
+	pen.fillText(score,38,58); //38,58 is position of text
+
+	//don't update the snake until Enter is pressed
+	if(start_pressed){
+		snake.updateSnake();
+	}
+	
+	document.getElementById("message1").value = `Your highest score: ${Highest_score}`;
+	document.getElementById("message2").value = `Score: ${score}`;
+	localStorage["Highest_score_key"] = Highest_score; //caching
+}
 
 
-init();
-start_pressed = false;
-first_game = true;
-//Highest_score = 0;
 
+/*--------------------------------------------- SNAKE CLASS --------------------------------------------*/
+//SNAKE CLASS
+snake = {
+	color:"blue",
+	snakeArray: [{x:0,y:end_row-1},{x:1,y:end_row-1},{x:2,y:end_row-1}],
+	direction:"",
+
+	//draw snake according to current 
+	//x and y coordintes of the snakeArray
+	drawSnake:function(){
+		for(var i=0;i<this.snakeArray.length;i++){
+			pen.fillStyle = this.color;
+			pen.fillRect(this.snakeArray[i].x*width,this.snakeArray[i].y*width,width-3,width-3);
+		}
+	},
+
+	//update snakeArray based on direction
+	//and whether food is eaten or not
+	updateSnake:function(){
+		var headX = this.snakeArray[0].x;
+		var headY = this.snakeArray[0].y;
+
+		if(headX==food.x && headY==food.y){
+			console.log("Food eaten");
+			food = getRandomFood();
+			score++;
+			//update highscore
+			if(score > Highest_score){
+				Highest_score = score;
+			}
+		} else{
+			this.snakeArray.pop();
+		}
+
+		var nextX,nextY;
+		if(this.direction=="right"){
+			nextX = headX + 1;
+			nextY = headY;
+		} else if(this.direction=="left"){
+			nextX = headX - 1;
+			nextY = headY;
+		} else if(this.direction=="down"){
+			nextX = headX;
+			nextY = headY + 1;
+		} else if(this.direction=="up"){
+			nextX = headX;
+			nextY = headY - 1;
+		} else{
+			//during start direction = ""
+			nextX = headX;
+			nextY = headY;
+		}
+		this.snakeArray.unshift({x: nextX,y:nextY});
+
+		// game over if the snake hits the wall
+		if(this.snakeArray[0].y<0 || this.snakeArray[0].x < 0 || this.snakeArray[0].x > end_col || this.snakeArray[0].y > end_row){
+			game_over = true;
+			start_pressed = false;
+		}
+	}
+};
+
+/*------------------------------------------- EVENT LISTENER ---------------------------------------------*/
+//Add a Event Listener on the Document Object to detect keyboard keypresses
+document.addEventListener('keydown',keyPressed);
+function keyPressed(e){
+	if(e.key=="ArrowRight"){
+		snake.direction = "right";
+	}
+	else if(e.key=="ArrowLeft"){
+		snake.direction = "left";
+	}
+	else if(e.key=="ArrowDown"){
+		e.preventDefault();
+		// to prevent webpage scrolling using arrow key
+		snake.direction = "down";
+	}
+	else if(e.key=="ArrowUp"){
+		e.preventDefault(); 
+		// to prevent webpage scrolling using arrow key
+		snake.direction = "up";
+	}
+	//starting game on pressing enter
+	else if(e.key=="Enter"){
+		start();
+	}
+	console.log(snake.direction);
+}
+
+
+
+/*-------------------------------------------------- CACHING ----------------------------------------------*/
 //caching highest score
-
 // localStorage['myKey'] = 'somestring'; // only strings //write
 // var myVar = localStorage['myKey'] || 'defaultValue'; //read
 
@@ -219,13 +172,9 @@ first_game = true;
 // var stored = localStorage['myKey']; //read
 // if (stored) myVar = JSON.parse(stored);
 // else myVar = {a:'test', b: [1, 2, 3]};
-
-
 if (localStorage.getItem("Highest_score_key") === null) {
 	localStorage["Highest_score_key"] = JSON.stringify(0);
 }
 stored = localStorage["Highest_score_key"]; //read
 console.log(`stored: ${stored}`);
 Highest_score = JSON.parse(stored);
-
-var f = setInterval(gameloop,100);

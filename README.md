@@ -12,10 +12,10 @@ This is an online interactive snake game, designed and coded by [Yogesh Agarwala
 5. Note: The snake can hit itself, i.e. you will lose only if the snake hits the wall.
 
 ## Concepts used
-1. OOPs (to write structure of the game)
-2. DOM manipulation (to constantly update snake's position and the scores)
-3. EventListener (to take input through keyboard)
-4. Caching (to store the highest score in brower's localstorage, so that even if the tab is closed the highest score of a user is not lost.)
+1. **OOPs** (to write structure of the game)
+2. **DOM manipulation** (to constantly update snake's position and the scores)
+3. **EventListener** (to take input through keyboard)
+4. **Caching** (to store the highest score in brower's localstorage, so that even if the tab is closed the highest score of a user is not lost.)
 
 ## Future Plan
 1. To extend the app for mobile users.

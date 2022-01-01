@@ -64,7 +64,7 @@ input[type="text"] {
     padding-bottom: 10;
 }*/
 
-#mycanvas {
+#boardid {
     background-image: url("../images/board.jpg");
     border: 20px solid #2c3e50;
     border-right: 10px  solid #2c3e50;
